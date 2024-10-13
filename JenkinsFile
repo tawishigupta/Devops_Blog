@@ -1,3 +1,12 @@
 pipeline {
-    
+    environment {
+        MONGODB_URI = credentials('mongodb-uri')
+        TOKEN_KEY = credentials('token-key')
+        EMAIL = credentials('email')
+        PASSWORD = credentials('password')
+    }
+
+    stages {
+
+    }
 }
