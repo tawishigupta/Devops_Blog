@@ -18,8 +18,8 @@ pipeline {
         stage('Frontend Tests') {
             steps {
                 dir('Frontend') {
-                    sh 'npm install'
-                    sh 'npm test'
+                    bat 'npm install'
+                    bat 'npm test'
                 }
             }
         }
@@ -27,12 +27,12 @@ pipeline {
         stage('Backend Tests') {
             steps {
                 dir('Backend') {
-                    sh 'npm install'
-                    sh 'export MONGODB_URI=$MONGODB_URI'
-                    sh 'export TOKEN_KEY=$TOKEN_KEY'
-                    sh 'export EMAIL=$EMAIL'
-                    sh 'export PASSWORD=$PASSWORD'
-                    sh 'npm test'
+                    bat 'npm install'
+                    bat 'export MONGODB_URI=$MONGODB_URI'
+                    bat 'export TOKEN_KEY=$TOKEN_KEY'
+                    bat 'export EMAIL=$EMAIL'
+                    bat 'export PASSWORD=$PASSWORD'
+                    bat 'npm test'
                 }
             }
         }
