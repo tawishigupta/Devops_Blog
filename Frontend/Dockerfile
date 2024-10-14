@@ -4,18 +4,16 @@ FROM  node:18 AS builder
 # Create a directory  and go to the directory 
 WORKDIR /app
 
+# Copy the package.json file to my current directory to install the necessary dependencies  
+COPY package.json .
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm ci --prefer-offline
+# Install the dependencies
+RUN npm install
 
 # Copy other files to my current directory
 COPY . .
 
 # Build and optimize static file
-ENV NODE_OPTIONS=--max_old_space_size=4096
 RUN npm run build
 
 # Stage-2

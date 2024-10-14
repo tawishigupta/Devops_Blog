@@ -40,10 +40,11 @@ pipeline {
          // This stage is telling Jenkins to build the images for the frontend and backend.
         stage('Build Images') {
             steps {
-                bat 'docker build -t mokshada21/devops-blog:backend-latest backend'
-                bat 'docker build -t mokshada21/devops-blog:frontend-latest frontend'
+                bat 'docker build -t mokshada21/devops-blog:backend-latest -f Backend/Dockerfile Backend'
+                bat 'docker build -t mokshada21/devops-blog:frontend-latest -f Frontend/Dockerfile Frontend'
             }
         }
+
 
         // This stage is telling Jenkins to push the images to DockerHub.
         stage('Push Images to DockerHub') {
