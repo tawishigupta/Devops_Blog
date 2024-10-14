@@ -4,11 +4,12 @@ FROM  node:18 AS builder
 # Create a directory  and go to the directory 
 WORKDIR /app
 
-# Copy the package.json file to my current directory to install the necessary dependence  
-COPY package.json .
 
-# Install the dependence
-RUN npm install
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --prefer-offline
 
 # Copy other files to my current directory
 COPY . .
