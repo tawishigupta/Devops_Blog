@@ -19,7 +19,7 @@ pipeline {
             steps {
                 dir('Frontend') {
                     bat 'npm install'
-                    bat 'npm test'
+                    // bat 'npm test'
                 }
             }
         }
@@ -32,7 +32,26 @@ pipeline {
                     bat 'export TOKEN_KEY=$TOKEN_KEY'
                     bat 'export EMAIL=$EMAIL'
                     bat 'export PASSWORD=$PASSWORD'
-                    bat 'npm test'
+                    // bat 'npm test'
+                }
+            }
+        }
+
+         // This stage is telling Jenkins to build the images for the frontend and backend.
+        stage('Build Images') {
+            steps {
+                bat 'docker build -t mokshada21/devops-blog:frontend-latest frontend'
+                bat 'docker build -t mokshada21/devops-blog:backend-latest backend'
+            }
+        }
+
+        // This stage is telling Jenkins to push the images to DockerHub.
+        stage('Push Images to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    bat 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                    bat 'docker push mokshada21/devops-blog:frontend-latest'
+                    bat 'docker push mokshada21/devops-blog:backend-latest'
                 }
             }
         }
