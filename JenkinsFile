@@ -28,10 +28,10 @@ pipeline {
             steps {
                 dir('Backend') {
                     bat 'npm install'
-                    bat 'export MONGODB_URI=$MONGODB_URI'
-                    bat 'export TOKEN_KEY=$TOKEN_KEY'
-                    bat 'export EMAIL=$EMAIL'
-                    bat 'export PASSWORD=$PASSWORD'
+                    bat 'set MONGODB_URI=$MONGODB_URI'
+                    bat 'set TOKEN_KEY=$TOKEN_KEY'
+                    bat 'set EMAIL=$EMAIL'
+                    bat 'set PASSWORD=$PASSWORD'
                     // bat 'npm test'
                 }
             }
