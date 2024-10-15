@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  
+      - NODE_ENV=production
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      TOKEN_KEY: ${TOKEN_KEY}
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+    depends_on:
+      - frontend
+
+volumes:
+  db_data: {}
