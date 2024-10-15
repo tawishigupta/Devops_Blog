@@ -6,6 +6,7 @@ pipeline {
         TOKEN_KEY = credentials('token-key')
         EMAIL = credentials('email')
         PASSWORD = credentials('password')
+        NVD_API_KEY = credentials('nvd-api')
     }
 
     stages {
