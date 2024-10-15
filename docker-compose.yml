@@ -1,5 +1,7 @@
 services:
   frontend:
+    container_name: frontend-container
+    image: mokshada21/devops-blog:frontend-latest
     build:
       context: ./Frontend
       dockerfile: Dockerfile
@@ -7,6 +9,8 @@ services:
       - "3000:3000"  
 
   backend:
+    container_name: backend-container
+    image: mokshada21/devops-blog:backend-latest
     build:
       context: ./Backend
       dockerfile: Dockerfile
