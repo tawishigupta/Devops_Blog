@@ -39,21 +39,14 @@ pipeline {
             }
         }
 
-         // This stage is telling Jenkins to build the images for the frontend and backend.
-        stage('Build Images') {
+        stage('Build and Push to Docker') {
             steps {
-                bat 'docker build -t mokshada21/devops-blog:backend-latest Backend'
-                bat 'docker build -t mokshada21/devops-blog:frontend-latest Frontend'
-            }
-        }
-
-        // This stage is telling Jenkins to push the images to DockerHub.
-        stage('Push Images to DockerHub') {
-            steps {
-                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
-                    bat 'docker push mokshada21/devops-blog:backend-latest'
-                    bat 'docker push mokshada21/devops-blog:frontend-latest'
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        bat 'docker-compose build'
+                        bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+                        bat 'docker-compose push'
+                    }
                 }
             }
         }
