@@ -16,7 +16,17 @@ pipeline {
         }
 
         // Owasp Dependency Check
-        
+        stage('OWASP Dependency Check') {
+            steps {
+                dir('Frontend') {
+                    // bat 'dependency-check.bat --project "Frontend" --scan . --format "ALL" --out ./owasp-reports/'
+                }
+                dir('Backend') {
+                    // bat 'dependency-check.bat --project "Backend" --scan . --format "ALL" --out ./owasp-reports/'
+                }
+            }
+        }
+
         stage('Frontend Tests') {
             steps {
                 dir('Frontend') {
