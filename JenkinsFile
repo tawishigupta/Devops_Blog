@@ -19,14 +19,11 @@ pipeline {
         // Owasp Dependency Check
         stage('OWASP Dependency Check') {
             steps {
-                dir('Frontend') {
-                    bat 'dependency-check.bat --project "Frontend" --scan . --format "ALL" --out ./owasp-reports/'
-                }
-                dir('Backend') {
-                    bat 'dependency-check.bat --project "Backend" --scan . --format "ALL" --out ./owasp-reports/'
-                }
-            }
-        }
+                echo 'Running OWASP Dependency Check...'
+                dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=$NVD_API_KEY", odcInstallation: 'DP-check'
+                dependencyCheckPublisher pattern: '/dependency-check-report.xml'
+            }
+        }
 
         stage('Frontend Tests') {
             steps {
