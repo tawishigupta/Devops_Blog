@@ -1,9 +1,12 @@
 const asyncErrorWrapper = require("express-async-handler")
+const express = require("express"); 
 const User = require("../Models/user");
 const CustomError = require("../Helpers/error/CustomError");
 const { sendToken } = require("../Helpers/auth/tokenHelpers");
 const sendEmail = require("../Helpers/Libraries/sendEmail");
 const { validateUserInput,comparePassword } = require("../Helpers/input/inputHelpers");
+
+const router = express.Router();
 
 const getPrivateData = asyncErrorWrapper((req,res,next) =>{
 
@@ -54,8 +57,6 @@ const login  = asyncErrorWrapper (async(req,res,next) => {
     sendToken(user ,200,res)  ;
     
 })
-
-
 
 
 const forgotpassword  = asyncErrorWrapper( async (req,res,next) => {
@@ -158,3 +159,4 @@ module.exports ={
     forgotpassword,
     getPrivateData
 }
+
