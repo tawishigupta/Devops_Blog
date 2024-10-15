@@ -19,10 +19,10 @@ pipeline {
         stage('OWASP Dependency Check') {
             steps {
                 dir('Frontend') {
-                    // bat 'dependency-check.bat --project "Frontend" --scan . --format "ALL" --out ./owasp-reports/'
+                    bat 'dependency-check.bat --project "Frontend" --scan . --format "ALL" --out ./owasp-reports/'
                 }
                 dir('Backend') {
-                    // bat 'dependency-check.bat --project "Backend" --scan . --format "ALL" --out ./owasp-reports/'
+                    bat 'dependency-check.bat --project "Backend" --scan . --format "ALL" --out ./owasp-reports/'
                 }
             }
         }
