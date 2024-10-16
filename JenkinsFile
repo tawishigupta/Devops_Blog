@@ -17,10 +17,21 @@ pipeline {
         }
 
         // Owasp Dependency Check
+        // stage('OWASP Dependency Check') {
+        //     steps {
+        //         echo 'Running OWASP Dependency Check...'
+        //         dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=$NVD_API_KEY", odcInstallation: 'DP-check'
+        //         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+        //     }
+        // }
+
+        // OWASP Dependency Check
         stage('OWASP Dependency Check') {
             steps {
                 echo 'Running OWASP Dependency Check...'
-                dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=$NVD_API_KEY", odcInstallation: 'DP-check'
+                script {
+                    dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=${env.NVD_API_KEY}", odcInstallation: 'DP-check'
+                }
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
