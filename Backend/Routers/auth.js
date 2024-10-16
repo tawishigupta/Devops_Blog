@@ -39,10 +39,6 @@ module.exports = router
 // router.get("/stories", getAllStories); // No auth required
 // router.get("/stories/:slug", detailStory); // Public route to get story details
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 497d827f36ba3642652c48be356e210c7c401d00
 // // Protected routes for story management
 // router.post("/stories", getAccessToRoute, addStory); // Auth required
 // router.put("/stories/:slug", getAccessToRoute, editStory); // Auth required
