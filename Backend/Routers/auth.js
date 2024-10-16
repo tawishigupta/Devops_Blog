@@ -20,6 +20,7 @@ router.get("/private",getAccessToRoute,getPrivateData)
 
 module.exports = router
 
+
 // const express = require("express");
 // const {
 //     addStory,
