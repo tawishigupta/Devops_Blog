@@ -40,7 +40,7 @@ pipeline {
             steps {
                 dir('Frontend') {
                     bat 'npm install'
-                    bat 'npm test'
+                    bat 'npx mocha'
                 }
             }
         }
