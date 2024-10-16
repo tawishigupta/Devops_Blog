@@ -18,4 +18,5 @@ COPY . .
 EXPOSE 5000
 
 # Run express rum in the foreground
+
 CMD ["npm", "start"]

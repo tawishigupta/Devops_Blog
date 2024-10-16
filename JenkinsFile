@@ -6,12 +6,22 @@ pipeline {
         TOKEN_KEY = credentials('token-key')
         EMAIL = credentials('email')
         PASSWORD = credentials('password')
+        NVD_API_KEY = credentials('nvd-api')
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        // Owasp Dependency Check
+        stage('OWASP Dependency Check') {
+            steps {
+                echo 'Running OWASP Dependency Check...'
+                dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=$NVD_API_KEY", odcInstallation: 'DP-check'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
 
