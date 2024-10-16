@@ -15,6 +15,7 @@
         "react-icons": "^4.3.1",
         "react-router-dom": "^6.2.1",
         "react-scripts": "5.0.0",
+        "selenium-webdriver": "^4.25.0",
         "uuid": "^8.3.2",
         "web-vitals": "^2.1.4"
     },
@@ -42,5 +43,8 @@
             "last 1 safari version"
         ]
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "chai": "^5.1.1",
+        "mocha": "^10.7.3"
+    }
 }
