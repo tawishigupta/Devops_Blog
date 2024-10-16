@@ -1,21 +1,40 @@
-services:
-  frontend:
-    container_name: frontend-container
-    image: mokshada21/devops-blog:frontend-latest
-    build:
-      context: ./Frontend
-      dockerfile: Dockerfile
-    network_mode: host
-    ports:
-      - "3000:80"  
+# services:
+#   frontend:
+#     container_name: frontend-container
+#     image: mokshada21/devops-blog:frontend-latest
+#     build:
+#       context: ./Frontend
+#       dockerfile: Dockerfile
+#     network_mode: host
+#     ports:
+#       - "3000:80"  
 
+#   backend:
+#     container_name: backend-container
+#     image: mokshada21/devops-blog:backend-latest
+#     build:
+#       context: ./Backend
+#       dockerfile: Dockerfile
+#     network_mode: host
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       MONGODB_URI: ${MONGODB_URI}
+#       TOKEN_KEY: ${TOKEN_KEY}
+#       EMAIL: ${EMAIL}
+#       PASSWORD: ${PASSWORD}
+#     depends_on:
+#       - frontend
+
+# volumes:
+#   db_data: {}
+services:
   backend:
     container_name: backend-container
     image: mokshada21/devops-blog:backend-latest
     build:
       context: ./Backend
       dockerfile: Dockerfile
-    network_mode: host
     ports:
       - "5000:5000"
     environment:
@@ -23,8 +42,25 @@ services:
       TOKEN_KEY: ${TOKEN_KEY}
       EMAIL: ${EMAIL}
       PASSWORD: ${PASSWORD}
+    networks:
+      - app-network
+
+  frontend:
+    container_name: frontend-container
+    image: mokshada21/devops-blog:frontend-latest
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
     depends_on:
-      - frontend
+      - backend  # The frontend depends on the backend service
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   db_data: {}
