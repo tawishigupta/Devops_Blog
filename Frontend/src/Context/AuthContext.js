@@ -12,13 +12,16 @@ const AuthContextProvider = props => {
       authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
   })
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  });
 
 
   useEffect(() => {
 
     const controlAuth = async () => {
       try {
-        const { data } = await axios.get("/auth/private", config);
+        const { data } = await api.get("/auth/private", config);
         setActiveUser(data.user)
       }
       catch (error) {

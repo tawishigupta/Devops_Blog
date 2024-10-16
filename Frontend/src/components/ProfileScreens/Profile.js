@@ -19,6 +19,9 @@ const Profile = () => {
         var datestring = d.getDate() + " " + monthNames[d.getMonth()] + " , " + d.getFullYear()
         return datestring
     }
+    const api = axios.create({
+        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+      });
 
     const navigate = useNavigate()
 
@@ -29,7 +32,7 @@ const Profile = () => {
             setLoading(true)
 
             try {
-                const { data } = await axios.get("/user/profile", config)
+                const { data } = await api.get("/user/profile", config)
 
                 setUser(data.data)
 

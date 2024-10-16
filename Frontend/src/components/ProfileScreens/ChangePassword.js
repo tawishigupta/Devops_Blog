@@ -15,6 +15,9 @@ const ChangePassword = () => {
     const [newPassword, setNewPassword] = useState('')
 
     const [confirmPassword, setConfirmPassword] = useState('')
+    const api = axios.create({
+        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+      });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +32,7 @@ const ChangePassword = () => {
         }
 
         try {
-            const { data } = await axios.put(
+            const { data } = await api.put(
                 "/user/changePassword",
                 {
                     newPassword,

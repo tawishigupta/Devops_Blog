@@ -19,6 +19,9 @@ const AddStory = () => {
     const [content, setContent] = useState('')
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
+    const api = axios.create({
+        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+      });
 
     const clearInputs = () => {
         setTitle('')
@@ -36,7 +39,7 @@ const AddStory = () => {
         formdata.append("content", content)
 
         try {
-            const { data } = await axios.post("/story/addstory", formdata, config)
+            const { data } = await api.post("/story/addstory", formdata, config)
             setSuccess('Add story successfully ')
 
             clearInputs()
