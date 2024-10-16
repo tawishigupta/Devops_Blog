@@ -1,5 +1,5 @@
 # Select a base image
-FROM  node:20-alpine3.17
+FROM  node:18-alpine3.17
 
 # Create a directory  and go to the directory 
 WORKDIR /app
@@ -18,4 +18,5 @@ COPY . .
 EXPOSE 5000
 
 # Run express rum in the foreground
+
 CMD ["npm", "start"]
