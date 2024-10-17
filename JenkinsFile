@@ -7,6 +7,13 @@ pipeline {
         EMAIL = credentials('email')
         PASSWORD = credentials('password')
         NVD_API_KEY = credentials('nvd-api')
+        ACR_NAME = 'flexidevopstrial' 
+        ACR_LOGIN_SERVER = 'flexidevopstrial.azurecr.io'  
+        ACR_RESOURCE_GROUP = 'flexiResource' 
+        FRONTEND_TAG = "${ACR_LOGIN_SERVER}/devops-blog:frontend-latest"
+        BACKEND_TAG = "${ACR_LOGIN_SERVER}/devops-blog:backend-latest"
+        DOCKER_HUB_IMAGE_FRONTEND = 'mokshada21/devops-blog:frontend-latest'
+        DOCKER_HUB_IMAGE_BACKEND = 'mokshada21/devops-blog:backend-latest'
     }
 
     stages {
@@ -26,12 +33,27 @@ pipeline {
         // }
 
         // OWASP Dependency Check
+        // stage('OWASP Dependency Check') {
+        //     steps {
+        //         echo 'Running OWASP Dependency Check...'
+        //         script {
+        //             dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=${env.NVD_API_KEY}", odcInstallation: 'DP-check'
+        //         }
+        //         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+        //     }
+        // }
+
         stage('OWASP Dependency Check') {
             steps {
                 echo 'Running OWASP Dependency Check...'
                 script {
-                    dependencyCheck additionalArguments: "--scan ./ --nvdApiKey=${env.NVD_API_KEY}", odcInstallation: 'DP-check'
+                    // Set the path to the Dependency Check executable
+                    def dependencyCheckPath = 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation\\DP-check\\bin\\dependency-check.bat'
+                    
+                    // Run Dependency Check with additional arguments
+                    bat "${dependencyCheckPath} --scan ./ --nvdApiKey=${env.NVD_API_KEY} --out ./dependency-check-report.xml"
                 }
+                // Use the dependency-check report publisher
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
@@ -66,6 +88,45 @@ pipeline {
                         bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
                         bat 'docker-compose push'
                     }
+                }
+            }
+        }
+
+        stage('Login to ACR') {
+            steps {
+                script {
+                    // Use Azure CLI to login to ACR
+                    bat 'az acr login --name $ACR_NAME'
+                }
+            }
+        }
+
+        stage('Pull Images from Docker Hub') {
+            steps {
+                script {
+                    // Pull the frontend and backend images from Docker Hub
+                    bat 'docker pull $DOCKER_HUB_IMAGE_FRONTEND'
+                    bat 'docker pull $DOCKER_HUB_IMAGE_BACKEND'
+                }
+            }
+        }
+
+        stage('Tag Images for ACR') {
+            steps {
+                script {
+                    // Tag the Docker Hub images for ACR
+                    bat 'docker tag $DOCKER_HUB_IMAGE_FRONTEND $FRONTEND_TAG'
+                    bat 'docker tag $DOCKER_HUB_IMAGE_BACKEND $BACKEND_TAG'
+                }
+            }
+        }
+
+        stage('Push Images to ACR') {
+            steps {
+                script {
+                    // Push the images to ACR
+                    bat 'docker push $FRONTEND_TAG'
+                    bat 'docker push $BACKEND_TAG'
                 }
             }
         }
