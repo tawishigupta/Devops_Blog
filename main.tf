@@ -43,7 +43,7 @@ resource "docker_container" "frontend_container" {
 
   ports {
     internal = 80
-    external = 80
+    external = 3000
   }
 }
 
