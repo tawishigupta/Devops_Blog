@@ -48,7 +48,7 @@ pipeline {
                 echo 'Running OWASP Dependency Check...'
                 script {
                     // Set the path to the Dependency Check executable
-                    def dependencyCheckPath = 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation\\DP-check\\bin\\dependency-check.bat'
+                    def dependencyCheckPath = 'C:\ProgramData\Jenkins\.jenkins\tools\org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation\DP-check\dependency-check\bin\dependency-check.bat'
                     
                     // Run Dependency Check with additional arguments
                     bat "${dependencyCheckPath} --scan ./ --nvdApiKey=${env.NVD_API_KEY} --out ./dependency-check-report.xml"
