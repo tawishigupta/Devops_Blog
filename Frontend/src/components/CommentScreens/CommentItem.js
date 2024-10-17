@@ -12,6 +12,9 @@ const CommentItem = ({ comment, activeUser }) => {
     const navigate = useNavigate()
     const [likeCount, setLikeCount] = useState(comment.likeCount)
     const [likeStatus, setLikeStatus] = useState(false)
+    const api = axios.create({
+        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+      });
 
     useEffect(() => {
 
@@ -19,7 +22,7 @@ const CommentItem = ({ comment, activeUser }) => {
 
             const comment_id = comment._id
             try {
-                const { data } = await axios.post(`/comment/${comment_id}/getCommentLikeStatus`, { activeUser }, {
+                const { data } = await api.post(`/comment/${comment_id}/getCommentLikeStatus`, { activeUser }, {
                     headers: {
                         "Content-Type": "application/json",
                         authorization: `Bearer ${localStorage.getItem("authToken")}`,

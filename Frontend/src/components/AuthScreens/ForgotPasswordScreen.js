@@ -7,12 +7,15 @@ const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  });
 
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
+      const { data } = await api.post(
         "/auth/forgotpassword",
         { email }
       );

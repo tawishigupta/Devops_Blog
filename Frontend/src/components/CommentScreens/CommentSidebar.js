@@ -7,6 +7,9 @@ const CommentSidebar = ({ slug, sidebarShowStatus, setSidebarShowStatus, activeU
 
   const [count, setCount] = useState(0)
   const [commentlist, setCommentList] = useState([])
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  });
 
   const sidebarRef = useRef(null);
 
@@ -17,7 +20,7 @@ const CommentSidebar = ({ slug, sidebarShowStatus, setSidebarShowStatus, activeU
 
   const getStoryComments = async () => {
     try {
-      const { data } = await axios.get(`/comment/${slug}/getAllComment`)
+      const { data } = await api.get(`/comment/${slug}/getAllComment`)
       setCommentList(data.data)
       setCount(data.count)
     }

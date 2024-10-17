@@ -10,6 +10,9 @@ const ResetPasswordScreen = () => {
   const [success, setSuccess] = useState("");
   const search = useLocation().search;
   const token = search.split("=")[1]
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  });
 
   const resetPasswordHandler = async (e) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ const ResetPasswordScreen = () => {
     }
 
     try {
-      const { data } = await axios.put(
+      const { data } = await api.put(
         `/auth/resetpassword?resetPasswordToken=${token}`,
         {
           password,

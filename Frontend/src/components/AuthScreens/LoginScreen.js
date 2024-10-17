@@ -7,13 +7,16 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate()
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  });
 
 
   const loginHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
+      const { data } = await api.post(
         "/auth/login",
         { email, password }
       );
