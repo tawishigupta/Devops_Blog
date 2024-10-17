@@ -42,8 +42,8 @@ resource "docker_container" "frontend_container" {
   image = data.docker_image.frontend_image.name
 
   ports {
-    internal = 3000
-    external = 3000
+    internal = 80
+    external = 80
   }
 }
 
