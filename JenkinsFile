@@ -32,7 +32,7 @@ pipeline {
         //     }
         // }
 
-        OWASP Dependency Check
+        //OWASP Dependency Check
         stage('OWASP Dependency Check') {
             steps {
                 echo 'Running OWASP Dependency Check...'
