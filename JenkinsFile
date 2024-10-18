@@ -95,9 +95,16 @@ pipeline {
         stage('Login to ACR') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'azure-admin-creds', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) {
-                        bat 'az login -u %AZURE_USERNAME% -p %AZURE_PASSWORD%'
-                        // Use Azure CLI to login to ACR
+                    withCredentials([
+                        string(credentialsId: 'azure-client-id', variable: 'AZURE_CLIENT_ID'),
+                        string(credentialsId: 'azure-client-secret', variable: 'AZURE_CLIENT_SECRET'),
+                        string(credentialsId: 'azure-tenant-id', variable: 'AZURE_TENANT_ID'),
+                        string(credentialsId: 'azure-subscription-id', variable: 'AZURE_SUBSCRIPTION_ID')
+                    ]) {
+                        // Login to Azure CLI with service principal
+                        bat 'az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%'
+
+                        // Login to ACR
                         bat 'az acr login --name %ACR_NAME%'
                     }
                 }
