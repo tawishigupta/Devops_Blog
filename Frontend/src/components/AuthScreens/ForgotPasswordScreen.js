@@ -10,6 +10,9 @@ const ForgotPasswordScreen = () => {
   const api = axios.create({
     baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
   });
+  // const api = axios.create({
+  //   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  // });
 
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
