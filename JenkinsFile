@@ -125,8 +125,8 @@ pipeline {
             steps {
                 script {
                     // Tag the Docker Hub images for ACR
-                    bat 'docker tag $DOCKER_HUB_IMAGE_FRONTEND $FRONTEND_TAG'
-                    bat 'docker tag $DOCKER_HUB_IMAGE_BACKEND $BACKEND_TAG'
+                    bat 'docker tag %DOCKER_HUB_IMAGE_FRONTEND %FRONTEND_TAG'
+                    bat 'docker tag %DOCKER_HUB_IMAGE_BACKEND %BACKEND_TAG'
                 }
             }
         }
