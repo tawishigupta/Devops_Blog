@@ -17,7 +17,7 @@ const AddComment = ({ setSidebarShowStatus, slug, getStoryComments, activeUser, 
     const [error, setError] = useState('')
     const [showStatus, setShowStatus] = useState(true)
     const api = axios.create({
-        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+        baseURL: process.env.REACT_APP_API_URL || 'http://devopsbackend.azurewebsites.net',
       });
 
     const handleSubmit = async (e) => {

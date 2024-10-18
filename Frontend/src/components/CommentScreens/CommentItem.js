@@ -13,7 +13,7 @@ const CommentItem = ({ comment, activeUser }) => {
     const [likeCount, setLikeCount] = useState(comment.likeCount)
     const [likeStatus, setLikeStatus] = useState(false)
     const api = axios.create({
-        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+        baseURL: process.env.REACT_APP_API_URL || 'http://devopsbackend.azurewebsites.net',
       });
 
     useEffect(() => {

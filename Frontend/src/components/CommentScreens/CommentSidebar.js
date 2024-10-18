@@ -8,7 +8,7 @@ const CommentSidebar = ({ slug, sidebarShowStatus, setSidebarShowStatus, activeU
   const [count, setCount] = useState(0)
   const [commentlist, setCommentList] = useState([])
   const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+    baseURL: process.env.REACT_APP_API_URL || 'http://devopsbackend.azurewebsites.net',
   });
 
   const sidebarRef = useRef(null);
