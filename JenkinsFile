@@ -96,9 +96,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'azure-admin-creds', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) {
-                    bat 'az login -u %AZURE_USERNAME% -p %AZURE_PASSWORD%'
-                    // Use Azure CLI to login to ACR
-                    bat 'az acr login --name %ACR_NAME%'
+                        bat 'az login -u %AZURE_USERNAME% -p %AZURE_PASSWORD%'
+                        // Use Azure CLI to login to ACR
+                        bat 'az acr login --name %ACR_NAME%'
+                    }
                 }
             }
         }
