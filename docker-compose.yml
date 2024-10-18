@@ -28,7 +28,7 @@
 
 # volumes:
 #   db_data: {}
-version: '3'
+
 services:
   frontend:
     container_name: frontend-container
@@ -64,4 +64,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
