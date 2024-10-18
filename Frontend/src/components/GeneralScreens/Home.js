@@ -18,7 +18,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+    baseURL: process.env.REACT_APP_API_URL || 'http://devopsbackend.azurewebsites.net',
   });
 
 

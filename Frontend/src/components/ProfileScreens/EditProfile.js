@@ -18,7 +18,7 @@ const EditProfile = () => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const api = axios.create({
-        baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+        baseURL: process.env.REACT_APP_API_URL || 'http://devopsbackend.azurewebsites.net',
       });
 
 
