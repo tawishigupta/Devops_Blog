@@ -22,7 +22,7 @@ const EditStory = () => {
     const [error, setError] = useState('')
     const navigate = useNavigate()
     const api = axios.create({
-        baseURL: process.env.REACT_APP_API_URL || 'http://devopsbackend.azurewebsites.net',
+        baseURL: process.env.REACT_APP_API_URL || 'https://devopsbackend.azurewebsites.net',
       });
 
     useEffect(() => {
